@@ -4,6 +4,6 @@ Simple installer program to install my most used apps after I refresh Ubuntu-bas
 ## Use
 In a terminal type:
 
-''' bash
+```bash
 python3 ./install.py
-'''
+```
