@@ -16,25 +16,29 @@ def printChoices():
     print("9.) xxd")
     print("10.) Zenity")
     print("11.) Virt Manager")
+    print("12.) Zoom")
     print("Enter 'a' to install all programs")
     print("Enter q to quit")
     return input("\nChoice: ")
 
-def chmod_scripts(script_name):
-    subprocess.run(["chmod", "+x", "install_"+script_name+".sh"])
+def chmod_scripts(script_name, exe_symb):
+    subprocess.run(["chmod", exe_symb+"x", "install_"+script_name+".sh"])
 
 def make_install_scripts_executable():
-    chmod_scripts("vscode")
-    chmod_scripts("powershell")
-    chmod_scripts("steam")
-    chmod_scripts("blender")
-    chmod_scripts("krita")
-    chmod_scripts("vlc")
-    chmod_scripts("tilix")
-    chmod_scripts("mozillavpn")
-    chmod_scripts("xxd")
-    chmod_scripts("zenity")
-    chmod_scripts("virt-manager")
+    chmod_scripts("vscode", "+")
+    chmod_scripts("powershell", "+")
+    chmod_scripts("steam", "+")
+    chmod_scripts("blender", "+")
+    chmod_scripts("krita", "+")
+    chmod_scripts("vlc", "+")
+    chmod_scripts("tilix", "+")
+    chmod_scripts("mozillavpn", "+")
+    chmod_scripts("xxd", "+")
+    chmod_scripts("zenity", "+")
+    chmod_scripts("virt-manager", "+")
+    chmod_scripts("flathub_repo", "+")
+    chmod_scripts("zoom", "+")
+
     print("System is ready to start installing your programs...")
     subprocess.run(["sleep", "3"])
     subprocess.run(["clear"])
@@ -50,6 +54,8 @@ def menu():
     passwd = getpass()
     answer = ''
     make_install_scripts_executable()
+    print("Installing flatpak and the flathub repo...\n")
+    do_install("flathub_repo", passwd)
 
     while answer != 'q':
         subprocess.run(["clear"])
@@ -90,6 +96,9 @@ def menu():
             case "11":
                 print_choice("Virt-Manager")
                 do_install("virt-manager", passwd)
+            case "12":
+                print_choice("Zoom")
+                do_install("zoom", "") # Send an empty string as a password since flatpak installs don't need a password
             case "a":
                 print_choice("all programs on the list")
                 do_install("vscode", passwd)
@@ -103,7 +112,24 @@ def menu():
                 do_install("xxd", passwd)
                 do_install("zenity", passwd)
                 do_install("virt-manager", passwd)
+                do_install("zoom", "")
             case "q":
+                subprocess.run(["clear"])
+                print("Cleaning up system...")
+                chmod_scripts("vscode", "-")
+                chmod_scripts("powershell", "-")
+                chmod_scripts("steam", "-")
+                chmod_scripts("blender", "-")
+                chmod_scripts("krita", "-")
+                chmod_scripts("vlc", "-")
+                chmod_scripts("tilix", "-")
+                chmod_scripts("mozillavpn", "-")
+                chmod_scripts("xxd", "-")
+                chmod_scripts("zenity", "-")
+                chmod_scripts("virt-manager", "-")
+                chmod_scripts("flathub_repo", "-")
+                chmod_scripts("zoom", "-")
+
                 print("Quitting...\n")
             case _:
                 print('Invalid choice!')
