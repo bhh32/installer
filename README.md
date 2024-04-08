@@ -7,3 +7,6 @@ In a terminal type:
 ```bash
 python3 ./install.py
 ```
+##Note:
+This will be rewitten in rust in the near future,
+and will not call bash scripts fir the functionality.
